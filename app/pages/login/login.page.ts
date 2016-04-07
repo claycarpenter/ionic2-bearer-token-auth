@@ -1,6 +1,8 @@
 import {Page} from 'ionic-angular';
 import {FormBuilder, Validators} from 'angular2/common';
 import {AuthService} from '../../lib/auth.service';
+import {AuthTokenRequest} from '../../lib/auth-token-request.service';
+import {RequestMethod} from 'angular2/http';
 
 
 @Page({
@@ -9,7 +11,7 @@ import {AuthService} from '../../lib/auth.service';
 export class LoginPage {
   public loginForm:any;
 
-  constructor(private _authService: AuthService, fb: FormBuilder) {
+  constructor(private _authService: AuthService, private _authTokenRequest: AuthTokenRequest, fb: FormBuilder) {
     this.loginForm = fb.group({
       email: ["", Validators.required],
       password: ["", Validators.required]
@@ -33,6 +35,13 @@ export class LoginPage {
   public testAuthentication() {
     this._authService.validateAuth().subscribe(
       res => console.log(`Auth test result: ${res}`),
+      error => console.error(error)
+    );
+  }
+
+  public testAuthTokenRequest() {
+    this._authTokenRequest.request(RequestMethod.Get, 'http://localhost:3000/item_types', undefined).subscribe(
+      items => console.log(items),
       error => console.error(error)
     );
   }

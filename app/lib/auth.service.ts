@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
   private _serviceUrl:string = 'http://localhost:3000/auth';
-  private _authHeaders:any = new Map();
+  public authHeaders:any = new Map();
 
   constructor(private _http: Http) { }
 
@@ -26,11 +26,11 @@ export class AuthService {
                 .map((res) => {
                   console.log(res);
 
-                  this._authHeaders.set('access-token', res.headers.get('access-token'));
-                  this._authHeaders.set('client', res.headers.get('client'));
-                  this._authHeaders.set('expiry', res.headers.get('expiry'));
-                  this._authHeaders.set('uid', res.headers.get('uid'));
-                  this._authHeaders.set('token-type', res.headers.get('token-type'));
+                  this.authHeaders.set('access-token', res.headers.get('access-token'));
+                  this.authHeaders.set('client', res.headers.get('client'));
+                  this.authHeaders.set('expiry', res.headers.get('expiry'));
+                  this.authHeaders.set('uid', res.headers.get('uid'));
+                  this.authHeaders.set('token-type', res.headers.get('token-type'));
 
                   return res.json();
                 })
@@ -41,7 +41,7 @@ export class AuthService {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
-    this._authHeaders.forEach((value, key) => {
+    this.authHeaders.forEach((value, key) => {
       headers.set(key, value);
     });
     let options = new RequestOptions({headers});
@@ -50,11 +50,11 @@ export class AuthService {
                 .map((res) => {
                   console.log(res);
 
-                  this._authHeaders.set('access-token', res.headers.get('access-token'));
-                  this._authHeaders.set('client', res.headers.get('client'));
-                  this._authHeaders.set('expiry', res.headers.get('expiry'));
-                  this._authHeaders.set('uid', res.headers.get('uid'));
-                  this._authHeaders.set('token-type', res.headers.get('token-type'));
+                  this.authHeaders.set('access-token', res.headers.get('access-token'));
+                  this.authHeaders.set('client', res.headers.get('client'));
+                  this.authHeaders.set('expiry', res.headers.get('expiry'));
+                  this.authHeaders.set('uid', res.headers.get('uid'));
+                  this.authHeaders.set('token-type', res.headers.get('token-type'));
 
                   return res.json();
                 })
@@ -65,7 +65,7 @@ export class AuthService {
     console.error(error);
 
     // Clear auth tokens.
-    this._authHeaders.clear();
+    this.authHeaders.clear();
 
     return Observable.throw(error.json().error || 'Server error');
   }
