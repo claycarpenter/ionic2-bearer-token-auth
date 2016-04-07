@@ -1,0 +1,8 @@
+<ion-content padding class="login">
+  <h2>Login</h2>
+  <form [ngFormModel]="loginForm" (submit)="doLogin($event)">
+    <input ngControl="email" type="email" placeholder="Your email">
+    <input ngControl="password" type="password" placeholder="Your password">
+    <button type="submit">Log in</button>
+  </form>
+</ion-content>

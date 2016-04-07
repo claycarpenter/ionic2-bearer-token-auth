@@ -1,15 +1,21 @@
 import 'es6-shim';
 import {App, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
-import {TabsPage} from './pages/tabs/tabs';
-
+import {LoginPage} from './pages/login/login.page';
+import {AuthService} from './lib/auth.service';
+import {HTTP_PROVIDERS} from 'angular2/http';
+import 'rxjs/Rx';   // Import all RxJS Observable operators
 
 @App({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
-  config: {} // http://ionicframework.com/docs/v2/api/config/Config/
+  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+  providers: [
+    HTTP_PROVIDERS,
+    AuthService
+  ]
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any = LoginPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
