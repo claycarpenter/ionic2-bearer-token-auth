@@ -23,9 +23,16 @@ export class LoginPage {
 
     let username = this.loginForm.controls.email.value,
         password = this.loginForm.controls.password.value;
-        
+
     this._authService.login(username, password).subscribe(
       user => console.log(`Logged in ${user}`),
+      error => console.error(error)
+    );
+  }
+
+  public testAuthentication() {
+    this._authService.validateAuth().subscribe(
+      res => console.log(`Auth test result: ${res}`),
       error => console.error(error)
     );
   }
