@@ -1,8 +1,9 @@
-import {Page} from 'ionic-angular';
+import {Page, NavController} from 'ionic-angular';
 import {FormBuilder, Validators} from 'angular2/common';
 import {AuthService} from '../../lib/auth.service';
 import {AuthTokenRequest} from '../../lib/auth-token-request.service';
 import {RequestMethod} from 'angular2/http';
+import {ItemDetailsPage} from '../item-details/item-details.page';
 
 
 @Page({
@@ -11,7 +12,7 @@ import {RequestMethod} from 'angular2/http';
 export class LoginPage {
   public loginForm:any;
 
-  constructor(private _authService: AuthService, private _authTokenRequest: AuthTokenRequest, fb: FormBuilder) {
+  constructor(private _authService:AuthService, private _authTokenRequest:AuthTokenRequest, private _nav:NavController, fb:FormBuilder) {
     this.loginForm = fb.group({
       email: ["", Validators.required],
       password: ["", Validators.required]
@@ -27,7 +28,11 @@ export class LoginPage {
         password = this.loginForm.controls.password.value;
 
     this._authService.login(username, password).subscribe(
-      user => console.log(`Logged in ${user}`),
+      (user) => {
+        console.log(`Logged in ${user}`);
+
+        this._nav.push(ItemDetailsPage);
+      },
       error => console.error(error)
     );
   }
