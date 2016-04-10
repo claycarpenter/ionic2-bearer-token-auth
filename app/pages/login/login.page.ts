@@ -3,7 +3,7 @@ import {FormBuilder, Validators} from 'angular2/common';
 import {AuthService} from '../../lib/auth.service';
 import {AuthTokenRequest} from '../../lib/auth-token-request.service';
 import {RequestMethod} from 'angular2/http';
-import {ItemDetailsPage} from '../item-details/item-details.page';
+import {ContactDetailsPage} from '../contact-details/contact-details.page';
 
 
 @Page({
@@ -31,7 +31,7 @@ export class LoginPage {
       (user) => {
         console.log(`Logged in ${user}`);
 
-        this._nav.push(ItemDetailsPage);
+        this._nav.push(ContactDetailsPage);
       },
       error => console.error(error)
     );
